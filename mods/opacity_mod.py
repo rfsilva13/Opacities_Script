@@ -30,27 +30,27 @@ def get_ground_levels(ionization_energies, atom_number):
 def get_general_data(min_ion,max_ion, atom_number):
     #Get the weights and ionization energies from NIST
     extent=f'{min_ion}-{max_ion}'
-    try:
-        Path('./Database/GeneralData').mkdir()
+    # try:
+    #     Path('./Database/GeneralData/').mkdir()
 
-        atomic_weights = NISTWeightsComp()
-        ionization_energies = NISTIonizationEnergies(extent)
-        gfall_reader = GFALLReader(extent)
-        gfall_reader.levels.to_parquet(f'./Database/GeneralData/{extent}.levelsgfall')
-        gfall_reader.lines.to_parquet(f'./Database/GeneralData/{extent}.linesgfall')
-        atomic_weights.base.to_parquet(f'./Database/GeneralData/{extent}.weights')
-        ground_levels = get_ground_levels(ionization_energies, atom_number)
-        ionization_energies.base.to_frame().to_parquet(f'./Database/GeneralData/{extent}.ionenergies')
-        ground_levels.to_parquet(f'./Database/GeneralData/{atom_number}.groundlevels')
-        gfall_levels=gfall_reader.levels
-        gfall_lines=gfall_reader.lines
-    except FileExistsError:
-        #print('Using existing general data')
-        atomic_weights=pd.read_parquet(f'./Database/GeneralData/{extent}.weights')
-        ionization_energies=pd.read_parquet(f'./Database/GeneralData/{extent}.ionenergies')
-        gfall_levels=pq.ParquetDataset(f'./Database/GeneralData/{extent}.levelsgfall').read().to_pandas()
-        gfall_lines=pq.ParquetDataset(f'./Database/GeneralData/{extent}.linesgfall').read().to_pandas()
-        ground_levels=pd.read_parquet(f'./Database/GeneralData/{atom_number}.groundlevels')
+    atomic_weights = NISTWeightsComp()
+    ionization_energies = NISTIonizationEnergies(extent)
+    gfall_reader = GFALLReader(extent)
+    gfall_reader.levels.to_parquet(f'./Database/GeneralData/{extent}.levelsgfall')
+    gfall_reader.lines.to_parquet(f'./Database/GeneralData/{extent}.linesgfall')
+    atomic_weights.base.to_parquet(f'./Database/GeneralData/{extent}.weights')
+    ground_levels = get_ground_levels(ionization_energies, atom_number)
+    ionization_energies.base.to_frame().to_parquet(f'./Database/GeneralData/{extent}.ionenergies')
+    ground_levels.to_parquet(f'./Database/GeneralData/{atom_number}.groundlevels')
+    gfall_levels=gfall_reader.levels
+    gfall_lines=gfall_reader.lines
+    # except FileExistsError:
+    #     #print('Using existing general data')
+    #     atomic_weights=pd.read_parquet(f'./Database/GeneralData/{extent}.weights')
+    #     ionization_energies=pd.read_parquet(f'./Database/GeneralData/{extent}.ionenergies')
+    #     gfall_levels=pq.ParquetDataset(f'./Database/GeneralData/{extent}.levelsgfall').read().to_pandas()
+    #     gfall_lines=pq.ParquetDataset(f'./Database/GeneralData/{extent}.linesgfall').read().to_pandas()
+    #     ground_levels=pd.read_parquet(f'./Database/GeneralData/{atom_number}.groundlevels')
     return atomic_weights,ionization_energies,gfall_levels,gfall_lines,ground_levels
 
 def filter_configs(atomic_data,ion_charge,configs):
