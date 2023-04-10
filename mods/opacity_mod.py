@@ -374,7 +374,7 @@ def compute_expansion_opacity(
         # print('final_levels',final_levels)
         # print('gfall',gfall)
         levels = pd.concat([final_levels, gfall])
-        print('levels',levels)
+        # print('levels',levels)
         levels.sort_index()
     else:
         final_levels=ground_levels.drop(ions)

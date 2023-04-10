@@ -126,7 +126,7 @@ if __name__ == "__main__":
     full_atomic_data, atomic_info = op.GetCompleteData(
         atomic_number, dir_path, filename, type_calc, ion_stages, min_ion, max_ion
     )
-    print(full_atomic_data)
+    # print(full_atomic_data)
     # opacitydf = Get_Opacity(full_atomic_data, atomic_info, T=5800, line_binned=False)
     # # opacitydf = Get_Opacity(full_atomic_data, atomic_info, T=5000, line_binned=False)
     # print(opacitydf)

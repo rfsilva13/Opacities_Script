@@ -32,7 +32,7 @@ def Get_Ionic_balance(full_atomic_data, atomic_info, T_min=1000, T_max=20000, T_
 
     ions=[(atomic_number,i) for i in ion_stages]
     if 0 not in ion_stages:
-        print('0 not in ion_stages')
+        # print('0 not in ion_stages')
                 #print('0 not in ion_stages')
         levels=levels.rename(columns={'energy [cm-1]':'energy'})
         levels['j']=levels['2j']*0.5
@@ -47,8 +47,8 @@ def Get_Ionic_balance(full_atomic_data, atomic_info, T_min=1000, T_max=20000, T_
         gfall["atomic_number"] = atomic_number
         gfall["ion_charge"] = 0
         gfall["g"] = gfall["j"] * 2 + 1
-        print('levels')
-        print(levels)
+        # print('levels')
+        # print(levels)
         levels = pd.concat([final_levels, gfall])
         levels.sort_index()
     else:
